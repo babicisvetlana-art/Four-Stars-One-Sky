@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Four Stars. One Sky.</title>
+<style>
+:root{--ink:#f5f2ea;--muted:#a8a8a8;--line:#494949}
+*{box-sizing:border-box}
+body{margin:0;background:#050505;color:var(--ink);font-family:Georgia,"Times New Roman",serif;min-height:100vh;overflow-x:hidden}
+.sky{position:fixed;inset:0;pointer-events:none;background:
+radial-gradient(circle at 10% 18%,#fff 0 1px,transparent 1.5px),
+radial-gradient(circle at 76% 23%,#fff 0 1px,transparent 1.5px),
+radial-gradient(circle at 34% 72%,#aaa 0 1px,transparent 1.5px),
+radial-gradient(circle at 90% 68%,#fff 0 1px,transparent 1.5px);
+background-size:190px 170px,230px 210px,270px 250px,310px 290px;opacity:.38}
+main{width:min(1000px,92vw);margin:auto;padding:64px 0 80px;text-align:center}
+.kicker{letter-spacing:.42em;font:11px Arial,sans-serif;color:#aaa;margin-bottom:16px}
+h1{font-weight:400;letter-spacing:.12em;font-size:clamp(32px,6vw,62px);margin:0}
+.sub{color:#aaa;font-style:italic;margin:12px 0 54px}
+.orbit{border:1px solid var(--line);border-radius:50%;padding:42px 20px;position:relative}
+.orbit:before{content:"";position:absolute;inset:18% -3%;border:1px solid #292929;border-radius:50%;transform:rotate(-7deg)}
+.grid{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.card{background:rgba(5,5,5,.78);border:1px solid #292929;padding:30px 10px 24px;min-height:240px;cursor:pointer;transition:.25s}
+.card:hover{transform:translateY(-4px);border-color:#777}
+.star{font-size:52px;line-height:1;text-shadow:0 0 18px #fff}
+.name{letter-spacing:.22em;margin:18px 0 7px}
+.code{font-size:14px;letter-spacing:.12em;color:#d5d5d5}
+.place{font:10px Arial,sans-serif;letter-spacing:.25em;color:#888;margin-top:9px}
+button{margin-top:20px;background:none;border:1px solid #666;color:#eee;padding:9px 15px;letter-spacing:.16em;font-size:9px;cursor:pointer}
+footer{margin-top:45px;font:10px Arial,sans-serif;letter-spacing:.18em;color:#777}
+dialog{width:min(620px,92vw);background:#080808;color:#eee;border:1px solid #555;padding:34px}
+dialog::backdrop{background:rgba(0,0,0,.82)}
+dialog h2{letter-spacing:.2em;font-weight:400}
+dialog p{color:#aaa;line-height:1.6}
+.close{float:right;margin:0}
+.skybox{border:1px solid #333;height:250px;border-radius:50%;position:relative;margin:25px auto;background:radial-gradient(circle at 50% 50%,#191919,#050505 65%)}
+.skybox:after{content:"✦  ·  ✧  ·  ✦      ✧  ·  ✦  ·  ✧";position:absolute;inset:46% 0 auto;font-size:26px;letter-spacing:.25em;color:#ddd}
+@media(max-width:720px){.grid{grid-template-columns:1fr 1fr}.orbit{padding:25px 12px}}
+</style>
+</head>
+<body>
+<div class="sky"></div>
+<main>
+<div class="kicker">A FAMILY CONSTELLATION</div>
+<h1>FOUR STARS. ONE SKY.</h1>
+<div class="sub">Four beginnings, held beneath one sky.</div>
+<section class="orbit"><div class="grid" id="cards"></div></section>
+<footer>CELESTIAL ARCHIVE · CHIȘINĂU × DUBAI</footer>
+</main>
+<dialog id="modal">
+<button class="close" onclick="modal.close()">CLOSE</button>
+<h2 id="mname"></h2><div id="mmeta"></div>
+<div class="skybox" aria-label="Celestial motif"></div>
+<p>The birth time is unknown, so this page identifies the date and place rather than claiming a precise birth-moment sky. Use the interactive sky link to explore the sky for that date and location.</p>
+<button id="skyLink">OPEN INTERACTIVE SKY ↗</button>
+</dialog>
+<script>
+const people=[
+{name:"DIMA",code:"09°06′06″",date:"2006-06-09",pretty:"09 JUNE 2006",place:"CHIȘINĂU",lat:47.0105,lon:28.8638},
+{name:"MALIKA",code:"18°08′14″",date:"2014-08-18",pretty:"18 AUGUST 2014",place:"CHIȘINĂU",lat:47.0105,lon:28.8638},
+{name:"BELLA",code:"10°05′25″",date:"2025-05-10",pretty:"10 MAY 2025",place:"DUBAI",lat:25.2048,lon:55.2708},
+{name:"STELLA",code:"28°05′26″",date:"2026-05-28",pretty:"28 MAY 2026",place:"DUBAI",lat:25.2048,lon:55.2708}
+];
+const cards=document.getElementById("cards"), modal=document.getElementById("modal");
+people.forEach((p,i)=>{
+ let el=document.createElement("article"); el.className="card";
+ el.innerHTML=`<div class="star">✦</div><div class="name">${p.name}</div><div class="code">${p.code}</div><div class="place">${p.pretty} · ${p.place}</div><button>EXPLORE THE SKY</button>`;
+ el.onclick=()=>openPerson(p); cards.appendChild(el);
+});
+function openPerson(p){
+ document.getElementById("mname").textContent=p.name;
+ document.getElementById("mmeta").innerHTML=`<div class="code">${p.code}</div><p>${p.pretty} · ${p.place}</p>`;
+ document.getElementById("skyLink").onclick=()=>window.open("https://stellarium-web.org/","_blank","noopener");
+ modal.showModal();
+}
+</script>
+</body></html>
