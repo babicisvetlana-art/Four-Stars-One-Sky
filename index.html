@@ -1,78 +1,134 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Four Stars. One Sky.</title>
-<style>
-:root{--ink:#f5f2ea;--muted:#a8a8a8;--line:#494949}
-*{box-sizing:border-box}
-body{margin:0;background:#050505;color:var(--ink);font-family:Georgia,"Times New Roman",serif;min-height:100vh;overflow-x:hidden}
-.sky{position:fixed;inset:0;pointer-events:none;background:
-radial-gradient(circle at 10% 18%,#fff 0 1px,transparent 1.5px),
-radial-gradient(circle at 76% 23%,#fff 0 1px,transparent 1.5px),
-radial-gradient(circle at 34% 72%,#aaa 0 1px,transparent 1.5px),
-radial-gradient(circle at 90% 68%,#fff 0 1px,transparent 1.5px);
-background-size:190px 170px,230px 210px,270px 250px,310px 290px;opacity:.38}
-main{width:min(1000px,92vw);margin:auto;padding:64px 0 80px;text-align:center}
-.kicker{letter-spacing:.42em;font:11px Arial,sans-serif;color:#aaa;margin-bottom:16px}
-h1{font-weight:400;letter-spacing:.12em;font-size:clamp(32px,6vw,62px);margin:0}
-.sub{color:#aaa;font-style:italic;margin:12px 0 54px}
-.orbit{border:1px solid var(--line);border-radius:50%;padding:42px 20px;position:relative}
-.orbit:before{content:"";position:absolute;inset:18% -3%;border:1px solid #292929;border-radius:50%;transform:rotate(-7deg)}
-.grid{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.card{background:rgba(5,5,5,.78);border:1px solid #292929;padding:30px 10px 24px;min-height:240px;cursor:pointer;transition:.25s}
-.card:hover{transform:translateY(-4px);border-color:#777}
-.star{font-size:52px;line-height:1;text-shadow:0 0 18px #fff}
-.name{letter-spacing:.22em;margin:18px 0 7px}
-.code{font-size:14px;letter-spacing:.12em;color:#d5d5d5}
-.place{font:10px Arial,sans-serif;letter-spacing:.25em;color:#888;margin-top:9px}
-button{margin-top:20px;background:none;border:1px solid #666;color:#eee;padding:9px 15px;letter-spacing:.16em;font-size:9px;cursor:pointer}
-footer{margin-top:45px;font:10px Arial,sans-serif;letter-spacing:.18em;color:#777}
-dialog{width:min(620px,92vw);background:#080808;color:#eee;border:1px solid #555;padding:34px}
-dialog::backdrop{background:rgba(0,0,0,.82)}
-dialog h2{letter-spacing:.2em;font-weight:400}
-dialog p{color:#aaa;line-height:1.6}
-.close{float:right;margin:0}
-.skybox{border:1px solid #333;height:250px;border-radius:50%;position:relative;margin:25px auto;background:radial-gradient(circle at 50% 50%,#191919,#050505 65%)}
-.skybox:after{content:"✦  ·  ✧  ·  ✦      ✧  ·  ✦  ·  ✧";position:absolute;inset:46% 0 auto;font-size:26px;letter-spacing:.25em;color:#ddd}
-@media(max-width:720px){.grid{grid-template-columns:1fr 1fr}.orbit{padding:25px 12px}}
-</style>
-</head>
-<body>
-<div class="sky"></div>
-<main>
-<div class="kicker">A FAMILY CONSTELLATION</div>
-<h1>FOUR STARS. ONE SKY.</h1>
-<div class="sub">Four beginnings, held beneath one sky.</div>
-<section class="orbit"><div class="grid" id="cards"></div></section>
-<footer>CELESTIAL ARCHIVE · CHIȘINĂU × DUBAI</footer>
-</main>
-<dialog id="modal">
-<button class="close" onclick="modal.close()">CLOSE</button>
-<h2 id="mname"></h2><div id="mmeta"></div>
-<div class="skybox" aria-label="Celestial motif"></div>
-<p>The birth time is unknown, so this page identifies the date and place rather than claiming a precise birth-moment sky. Use the interactive sky link to explore the sky for that date and location.</p>
-<button id="skyLink">OPEN INTERACTIVE SKY ↗</button>
-</dialog>
-<script>
-const people=[
-{name:"DIMA",code:"09°06′06″",date:"2006-06-09",pretty:"09 JUNE 2006",place:"CHIȘINĂU",lat:47.0105,lon:28.8638},
-{name:"MALIKA",code:"18°08′14″",date:"2014-08-18",pretty:"18 AUGUST 2014",place:"CHIȘINĂU",lat:47.0105,lon:28.8638},
-{name:"BELLA",code:"10°05′25″",date:"2025-05-10",pretty:"10 MAY 2025",place:"DUBAI",lat:25.2048,lon:55.2708},
-{name:"STELLA",code:"28°05′26″",date:"2026-05-28",pretty:"28 MAY 2026",place:"DUBAI",lat:25.2048,lon:55.2708}
-];
-const cards=document.getElementById("cards"), modal=document.getElementById("modal");
-people.forEach((p,i)=>{
- let el=document.createElement("article"); el.className="card";
- el.innerHTML=`<div class="star">✦</div><div class="name">${p.name}</div><div class="code">${p.code}</div><div class="place">${p.pretty} · ${p.place}</div><button>EXPLORE THE SKY</button>`;
- el.onclick=()=>openPerson(p); cards.appendChild(el);
-});
-function openPerson(p){
- document.getElementById("mname").textContent=p.name;
- document.getElementById("mmeta").innerHTML=`<div class="code">${p.code}</div><p>${p.pretty} · ${p.place}</p>`;
- document.getElementById("skyLink").onclick=()=>window.open("https://stellarium-web.org/","_blank","noopener");
- modal.showModal();
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Four Stars. One Sky.</title><style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:
+radial-gradient(ellipse at 50% 22%,rgba(255,255,255,.055) 0,rgba(255,255,255,.018) 24%,transparent 48%),
+radial-gradient(circle at 18% 66%,rgba(255,255,255,.025),transparent 34%),
+linear-gradient(#050506,#09090a 52%,#030304);color:#f4f0e8;font-family:Georgia,serif;text-align:center}#sky{position:fixed;inset:0;pointer-events:none}
+#sky:before{content:"";position:absolute;left:-20%;top:8%;width:145%;height:42%;transform:rotate(-24deg);background:linear-gradient(180deg,transparent,rgba(180,190,205,.025) 15%,rgba(220,225,235,.09) 48%,rgba(155,165,185,.035) 72%,transparent);filter:blur(18px);box-shadow:0 0 55px rgba(200,210,230,.035)}
+#sky:after{content:"";position:absolute;left:50%;top:49%;width:84vw;height:35vw;max-width:930px;max-height:390px;border:1px solid rgba(255,255,255,.09);border-radius:50%;transform:translate(-50%,-50%) rotate(-13deg);box-shadow:0 0 0 1px rgba(255,255,255,.018) inset}
+.dot{position:absolute;background:#fff;border-radius:50%;animation:tw 3s infinite alternate}@keyframes tw{from{opacity:.12}to{opacity:.9}}#constellations{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.75}main{position:relative;padding:58px 3vw 80px;max-width:1000px;margin:auto}.intro{opacity:0;transform:translateY(10px);filter:blur(3px);animation:introIn 2.2s cubic-bezier(.22,.61,.36,1) forwards .7s}@keyframes show{to{opacity:1;transform:none}}@keyframes introIn{0%{opacity:0;transform:translateY(10px);filter:blur(3px)}55%{opacity:.62;filter:blur(1px)}100%{opacity:1;transform:none;filter:blur(0)}}.k{font:10px Arial;letter-spacing:.42em;color:#aaa}h1{font-weight:400;letter-spacing:.11em;font-size:clamp(30px,6vw,60px);margin:15px 0 10px}.sub{color:#aaa;font-style:italic}.family{margin-top:52px}.top{display:flex;justify-content:center;margin-bottom:28px;opacity:0;transform:translateY(12px) scale(.985);animation:personIn 1.45s cubic-bezier(.22,.61,.36,1) forwards 2.55s}.kids{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;opacity:0;transform:translateY(14px);animation:personIn 1.55s cubic-bezier(.22,.61,.36,1) forwards 3.65s}.p{display:block;color:inherit;text-decoration:none;border:1px solid rgba(255,255,255,.18);background:rgba(5,6,8,.30);padding:25px 8px;transition:.25s}.p:hover{transform:translateY(-3px);border-color:#888;background:rgba(8,9,11,.48)}.wael{width:min(260px,76vw)}.star{font-size:50px;text-shadow:0 0 12px white,0 0 28px #ffffff77}.name{letter-spacing:.2em;margin-top:16px}.date{font-size:13px;letter-spacing:.12em;margin-top:8px;color:#d0ccc4}.go{display:inline-block;font:9px Arial;letter-spacing:.16em;color:#d8d3ca;margin-top:17px;padding:9px 14px;border:1px solid #555;border-radius:999px}@media(max-width:700px){.kids{grid-template-columns:1fr 1fr}.p{min-height:170px}}
+
+body:before,body:after{
+ content:"";position:fixed;z-index:0;pointer-events:none;top:0;bottom:0;width:24vw;min-width:120px;opacity:.72;
+ background-image:
+ radial-gradient(circle at 18% 8%,#fff 0 1px,transparent 1.8px),
+ radial-gradient(circle at 72% 15%,#fff 0 1.2px,transparent 2px),
+ radial-gradient(circle at 38% 24%,#fff 0 .8px,transparent 1.5px),
+ radial-gradient(circle at 82% 31%,#fff 0 1px,transparent 1.8px),
+ radial-gradient(circle at 12% 42%,#fff 0 1.4px,transparent 2.2px),
+ radial-gradient(circle at 58% 51%,#fff 0 .9px,transparent 1.6px),
+ radial-gradient(circle at 87% 61%,#fff 0 1.2px,transparent 2px),
+ radial-gradient(circle at 29% 70%,#fff 0 .8px,transparent 1.5px),
+ radial-gradient(circle at 68% 79%,#fff 0 1.3px,transparent 2px),
+ radial-gradient(circle at 15% 91%,#fff 0 1px,transparent 1.8px);
+ background-size:170px 230px,210px 270px,145px 190px,240px 310px,190px 250px,160px 220px,230px 290px,180px 240px,210px 280px,150px 210px;
 }
+body:before{left:0}
+body:after{right:0;transform:scaleX(-1)}
+
+.signature{
+  position:relative;
+  z-index:2;
+  text-align:center;
+  margin:10px auto 34px;
+  color:rgba(244,240,232,.42);
+  font:9px Arial,sans-serif;
+  letter-spacing:.18em;
+  line-height:1.9;
+}
+.signature .love{
+  font-family:Georgia,"Times New Roman",serif;
+  font-style:italic;
+  letter-spacing:.08em;
+  color:rgba(244,240,232,.48);
+}
+@keyframes personIn{0%{opacity:0;transform:translateY(14px) scale(.985)}100%{opacity:1;transform:translateY(0) scale(1)}}
+#familyLines{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;overflow:visible}
+.family-line{stroke:rgba(244,240,232,.32);stroke-width:1;fill:none;stroke-dasharray:1;stroke-dashoffset:1;filter:drop-shadow(0 0 3px rgba(255,255,255,.18));animation:drawFamily 1.7s ease forwards}
+@keyframes drawFamily{to{stroke-dashoffset:0}}
+#meteor{position:fixed;z-index:1;pointer-events:none;width:90px;height:1px;opacity:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),#fff);box-shadow:0 0 7px rgba(255,255,255,.45);transform:rotate(-25deg)}
+#meteor.fly{animation:meteorFly 1.05s ease-out}
+@keyframes meteorFly{0%{opacity:0;left:78vw;top:13vh;transform:translate(0,0) rotate(-25deg)}12%{opacity:.85}100%{opacity:0;left:47vw;top:34vh;transform:translate(-60px,45px) rotate(-25deg)}}
+.go{transition:background .18s ease,color .18s ease,box-shadow .18s ease,border-color .18s ease,transform .18s ease}
+.go.launch{background:rgba(255,255,255,.92)!important;color:#090a0c!important;border-color:#fff!important;box-shadow:0 0 16px rgba(255,255,255,.55),0 0 35px rgba(255,255,255,.18);transform:scale(1.04)}
+</style></head><body><div id="sky"></div><svg id="constellations" viewBox="0 0 1000 1600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+<g fill="none" stroke="rgba(255,255,255,.13)" stroke-width="1">
+<path d="M45 245 L120 195 L190 270 L255 220 L315 300"/>
+<path d="M720 165 L790 225 L865 190 L930 260"/>
+<path d="M70 1110 L155 1040 L230 1105 L310 1015"/>
+<path d="M690 1210 L755 1140 L835 1200 L930 1115"/>
+</g>
+<g fill="#fff" opacity=".55">
+<circle cx="45" cy="245" r="2"/><circle cx="120" cy="195" r="2.5"/><circle cx="190" cy="270" r="2"/><circle cx="255" cy="220" r="2.5"/><circle cx="315" cy="300" r="2"/>
+<circle cx="720" cy="165" r="2"/><circle cx="790" cy="225" r="2.5"/><circle cx="865" cy="190" r="2"/><circle cx="930" cy="260" r="2.5"/>
+<circle cx="70" cy="1110" r="2"/><circle cx="155" cy="1040" r="2.5"/><circle cx="230" cy="1105" r="2"/><circle cx="310" cy="1015" r="2"/>
+<circle cx="690" cy="1210" r="2"/><circle cx="755" cy="1140" r="2.5"/><circle cx="835" cy="1200" r="2"/><circle cx="930" cy="1115" r="2.5"/>
+</g>
+<g fill="none" stroke="rgba(255,255,255,.16)" stroke-width="1">
+<path d="M15 470 L72 420 L126 455 L165 390 L215 430"/>
+<path d="M985 505 L930 450 L875 490 L830 420 L780 455"/>
+<path d="M10 760 L68 710 L120 748 L175 690"/>
+<path d="M990 810 L938 750 L885 790 L825 720"/>
+<path d="M22 1370 L82 1315 L140 1360 L195 1285"/>
+<path d="M978 1400 L920 1340 L860 1382 L805 1305"/>
+</g>
+<g fill="#fff" opacity=".7">
+<circle cx="15" cy="470" r="2"/><circle cx="72" cy="420" r="2.4"/><circle cx="126" cy="455" r="1.8"/><circle cx="165" cy="390" r="2.5"/><circle cx="215" cy="430" r="1.8"/>
+<circle cx="985" cy="505" r="2"/><circle cx="930" cy="450" r="2.4"/><circle cx="875" cy="490" r="1.8"/><circle cx="830" cy="420" r="2.5"/><circle cx="780" cy="455" r="1.8"/>
+</g></svg><svg id="familyLines" aria-hidden="true"></svg><div id="meteor" aria-hidden="true"></div><main><section class="intro"><div class="k">A FAMILY CONSTELLATION</div><h1>FOUR STARS. ONE SKY.</h1><div class="sub">Four beginnings, held beneath one sky.</div></section><section class="family"><div class="top">
+<a class="p wael" id="waelCard" href="https://theskylive.com/planetarium?objects=sun-moon-mercury-venus-mars-jupiter-saturn-uranus-neptune-pluto&localdata=36.80472%7C42.08889%7CRabia%2C+Iraq%7CAsia%2FBaghdad%7C0&obj=sun&h=04&m=00&date=1986-09-25#fov|80" target="_blank" rel="noopener"><div class="star">✦</div><div class="name">WAEL</div><div class="date">25°09′1986″</div><div class="go">OPEN SKY MAP</div></a></div><div class="kids">
+<a class="p" id="dimaCard" href="https://theskylive.com/planetarium?objects=sun-moon-mercury-venus-mars-jupiter-saturn-uranus-neptune-pluto&localdata=47.0105%7C28.8638%7CChisinau%2C+Moldova%7CEurope%2FChisinau%7C0&obj=sun&h=05&m=00&date=2006-06-09#fov|80" target="_blank" rel="noopener"><div class="star">✦</div><div class="name">DIMA</div><div class="date">09°06′2006″</div><div class="go">OPEN SKY MAP</div></a>
+<a class="p" id="malikaCard" href="https://theskylive.com/planetarium?objects=sun-moon-mercury-venus-mars-jupiter-saturn-uranus-neptune-pluto&localdata=47.0105%7C28.8638%7CChisinau%2C+Moldova%7CEurope%2FChisinau%7C0&obj=sun&h=05&m=00&date=2014-08-18#fov|80" target="_blank" rel="noopener"><div class="star">✦</div><div class="name">MALIKA</div><div class="date">18°08′2014″</div><div class="go">OPEN SKY MAP</div></a>
+<a class="p" id="bellaCard" href="https://theskylive.com/planetarium?objects=sun-moon-mercury-venus-mars-jupiter-saturn-uranus-neptune-pluto&localdata=25.2048%7C55.2708%7CDubai%2C+UAE%7CAsia%2FDubai%7C0&obj=sun&h=04&m=00&date=2025-05-10#fov|80" target="_blank" rel="noopener"><div class="star">✦</div><div class="name">BELLA</div><div class="date">10°05′2025″</div><div class="go">OPEN SKY MAP</div></a>
+<a class="p" id="stellaCard" href="https://theskylive.com/planetarium?objects=sun-moon-mercury-venus-mars-jupiter-saturn-uranus-neptune-pluto&localdata=25.2048%7C55.2708%7CDubai%2C+UAE%7CAsia%2FDubai%7C0&obj=sun&h=04&m=00&date=2026-05-28#fov|80" target="_blank" rel="noopener"><div class="star">✦</div><div class="name">STELLA</div><div class="date">28°05′2026″</div><div class="go">OPEN SKY MAP</div></a>
+</div></section></main>
+<footer class="signature">
+  <div>25.09.2026</div>
+  <div class="love">from Svetlana with love</div>
+</footer>
+<script>const sky=document.getElementById('sky');for(let i=0;i<150;i++){let s=document.createElement('i');s.className='dot';let z=Math.random()*1.8+.4;s.style=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${z}px;height:${z}px;animation-delay:${Math.random()*4}s;animation-duration:${2+Math.random()*4}s`;sky.appendChild(s)}</script>
+<script>
+(function(){
+  const svg=document.getElementById('familyLines');
+  const ids=['dimaCard','malikaCard','bellaCard','stellaCard'];
+  function center(el){
+    const r=el.getBoundingClientRect();
+    return {x:r.left+r.width/2,y:r.top+r.height/2};
+  }
+  function drawConstellation(){
+    svg.innerHTML='';
+    const w=document.getElementById('waelCard');
+    if(!w)return;
+    const a=center(w);
+    ids.forEach((id,i)=>{
+      const el=document.getElementById(id); if(!el)return;
+      const b=center(el);
+      const line=document.createElementNS('http://www.w3.org/2000/svg','line');
+      line.setAttribute('x1',a.x);line.setAttribute('y1',a.y);
+      line.setAttribute('x2',b.x);line.setAttribute('y2',b.y);
+      line.setAttribute('pathLength','1');line.setAttribute('class','family-line');
+      line.style.animationDelay=(i*.16)+'s';
+      svg.appendChild(line);
+    });
+  }
+  setTimeout(drawConstellation,5100);
+  addEventListener('resize',()=>{ if(svg.children.length) drawConstellation(); });
+
+  const meteor=document.getElementById('meteor');
+  function shoot(){
+    meteor.classList.remove('fly'); void meteor.offsetWidth; meteor.classList.add('fly');
+    setTimeout(shoot,11000+Math.random()*7000);
+  }
+  setTimeout(shoot,8500);
+
+  document.querySelectorAll('a.p').forEach(card=>{
+    card.addEventListener('click',function(e){
+      e.preventDefault();
+      const url=this.href;
+      const btn=this.querySelector('.go');
+      btn.classList.add('launch');
+      setTimeout(()=>{ window.open(url,'_blank','noopener'); btn.classList.remove('launch'); },420);
+    });
+  });
+})();
 </script>
 </body></html>
