@@ -42,9 +42,7 @@ body:after{right:0;transform:scaleX(-1)}
   color:rgba(244,240,232,.48);
 }
 @keyframes personIn{0%{opacity:0;transform:translateY(14px) scale(.985)}100%{opacity:1;transform:translateY(0) scale(1)}}
-#familyLines{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;overflow:visible}
-.family-line{stroke:rgba(244,240,232,.32);stroke-width:1;fill:none;stroke-dasharray:1;stroke-dashoffset:1;filter:drop-shadow(0 0 3px rgba(255,255,255,.18));animation:drawFamily 1.7s ease forwards}
-@keyframes drawFamily{to{stroke-dashoffset:0}}
+}
 #meteor{position:fixed;z-index:1;pointer-events:none;width:90px;height:1px;opacity:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),#fff);box-shadow:0 0 7px rgba(255,255,255,.45);transform:rotate(-25deg)}
 #meteor.fly{animation:meteorFly 1.05s ease-out}
 @keyframes meteorFly{0%{opacity:0;left:78vw;top:13vh;transform:translate(0,0) rotate(-25deg)}12%{opacity:.85}100%{opacity:0;left:47vw;top:34vh;transform:translate(-60px,45px) rotate(-25deg)}}
@@ -74,7 +72,7 @@ body:after{right:0;transform:scaleX(-1)}
 <g fill="#fff" opacity=".7">
 <circle cx="15" cy="470" r="2"/><circle cx="72" cy="420" r="2.4"/><circle cx="126" cy="455" r="1.8"/><circle cx="165" cy="390" r="2.5"/><circle cx="215" cy="430" r="1.8"/>
 <circle cx="985" cy="505" r="2"/><circle cx="930" cy="450" r="2.4"/><circle cx="875" cy="490" r="1.8"/><circle cx="830" cy="420" r="2.5"/><circle cx="780" cy="455" r="1.8"/>
-</g></svg><svg id="familyLines" aria-hidden="true"></svg><div id="meteor" aria-hidden="true"></div><main><section class="intro"><div class="k">A FAMILY CONSTELLATION</div><h1>FOUR STARS. ONE SKY.</h1><div class="sub">Four beginnings, held beneath one sky.</div></section><section class="family"><div class="top">
+</g></svg><div id="meteor" aria-hidden="true"></div><main><section class="intro"><div class="k">A FAMILY CONSTELLATION</div><h1>FOUR STARS. ONE SKY.</h1><div class="sub">Four beginnings, held beneath one sky.</div></section><section class="family"><div class="top">
 <a class="p wael" id="waelCard" href="https://theskylive.com/planetarium?objects=sun-moon-mercury-venus-mars-jupiter-saturn-uranus-neptune-pluto&localdata=36.80472%7C42.08889%7CRabia%2C+Iraq%7CAsia%2FBaghdad%7C0&obj=sun&h=04&m=00&date=1986-09-25#fov|80" target="_blank" rel="noopener"><div class="star">✦</div><div class="name">WAEL</div><div class="date">25°09′1986″</div><div class="go">OPEN SKY MAP</div></a></div><div class="kids">
 <a class="p" id="dimaCard" href="https://theskylive.com/planetarium?objects=sun-moon-mercury-venus-mars-jupiter-saturn-uranus-neptune-pluto&localdata=47.0105%7C28.8638%7CChisinau%2C+Moldova%7CEurope%2FChisinau%7C0&obj=sun&h=05&m=00&date=2006-06-09#fov|80" target="_blank" rel="noopener"><div class="star">✦</div><div class="name">DIMA</div><div class="date">09°06′2006″</div><div class="go">OPEN SKY MAP</div></a>
 <a class="p" id="malikaCard" href="https://theskylive.com/planetarium?objects=sun-moon-mercury-venus-mars-jupiter-saturn-uranus-neptune-pluto&localdata=47.0105%7C28.8638%7CChisinau%2C+Moldova%7CEurope%2FChisinau%7C0&obj=sun&h=05&m=00&date=2014-08-18#fov|80" target="_blank" rel="noopener"><div class="star">✦</div><div class="name">MALIKA</div><div class="date">18°08′2014″</div><div class="go">OPEN SKY MAP</div></a>
@@ -88,30 +86,6 @@ body:after{right:0;transform:scaleX(-1)}
 <script>const sky=document.getElementById('sky');for(let i=0;i<150;i++){let s=document.createElement('i');s.className='dot';let z=Math.random()*1.8+.4;s.style=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${z}px;height:${z}px;animation-delay:${Math.random()*4}s;animation-duration:${2+Math.random()*4}s`;sky.appendChild(s)}</script>
 <script>
 (function(){
-  const svg=document.getElementById('familyLines');
-  const ids=['dimaCard','malikaCard','bellaCard','stellaCard'];
-  function center(el){
-    const r=el.getBoundingClientRect();
-    return {x:r.left+r.width/2,y:r.top+r.height/2};
-  }
-  function drawConstellation(){
-    svg.innerHTML='';
-    const w=document.getElementById('waelCard');
-    if(!w)return;
-    const a=center(w);
-    ids.forEach((id,i)=>{
-      const el=document.getElementById(id); if(!el)return;
-      const b=center(el);
-      const line=document.createElementNS('http://www.w3.org/2000/svg','line');
-      line.setAttribute('x1',a.x);line.setAttribute('y1',a.y);
-      line.setAttribute('x2',b.x);line.setAttribute('y2',b.y);
-      line.setAttribute('pathLength','1');line.setAttribute('class','family-line');
-      line.style.animationDelay=(i*.16)+'s';
-      svg.appendChild(line);
-    });
-  }
-  setTimeout(drawConstellation,5100);
-  addEventListener('resize',()=>{ if(svg.children.length) drawConstellation(); });
 
   const meteor=document.getElementById('meteor');
   function shoot(){
