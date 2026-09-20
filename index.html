@@ -76,7 +76,7 @@ body:after{right:0;transform:scaleX(-1)}
 <a class="p wael" id="waelCard" href="https://theskylive.com/planetarium?objects=sun-moon-mercury-venus-mars-jupiter-saturn-uranus-neptune-pluto&localdata=36.80472%7C42.08889%7CRabia%2C+Iraq%7CAsia%2FBaghdad%7C0&obj=sun&h=04&m=00&date=1986-09-25#fov|80" target="_blank" rel="noopener"><div class="star wael-star">✷</div><div class="name">WAEL</div><div class="date">25°09′1986″</div><div class="go">OPEN SKY MAP</div></a></div><div class="kids">
 <a class="p" id="dimaCard" href="https://theskylive.com/planetarium?objects=sun-moon-mercury-venus-mars-jupiter-saturn-uranus-neptune-pluto&localdata=47.0105%7C28.8638%7CChisinau%2C+Moldova%7CEurope%2FChisinau%7C0&obj=sun&h=05&m=00&date=2006-06-09#fov|80" target="_blank" rel="noopener"><div class="star">✦</div><div class="name">DIMA</div><div class="date">09°06′2006″</div><div class="go">OPEN SKY MAP</div></a>
 <a class="p" id="malikaCard" href="https://theskylive.com/planetarium?objects=sun-moon-mercury-venus-mars-jupiter-saturn-uranus-neptune-pluto&localdata=47.0105%7C28.8638%7CChisinau%2C+Moldova%7CEurope%2FChisinau%7C0&obj=sun&h=05&m=00&date=2014-08-18#fov|80" target="_blank" rel="noopener"><div class="star">✦</div><div class="name">MALIKA</div><div class="date">18°08′2014″</div><div class="go">OPEN SKY MAP</div></a>
-<a class="p" id="bellaCard" href="https://theskylive.com/planetarium?objects=sun-moon-mercury-venus-mars-jupiter-saturn-uranus-neptune-pluto&localdata=25.2048%7C55.2708%7CDubai%2C+UAE%7CAsia%2FDubai%7C0&obj=sun&h=04&m=00&date=2025-05-10#fov|80" target="_blank" rel="noopener"><div class="star">✦</div><div class="name">BELLA</div><div class="date">10°05′2025″</div><div class="go">OPEN SKY MAP</div></a>
+<a class="p" id="bellaCard" href="https://theskylive.com/planetarium?objects=sun-moon-mercury-venus-mars-jupiter-saturn-uranus-neptune-pluto&localdata=25.2048%7C55.2708%7CDubai%2C+UAE%7CAsia%2FDubai%7C0&obj=sun&h=04&m=00&date=2025-02-10#fov|80" target="_blank" rel="noopener"><div class="star">✦</div><div class="name">BELLA</div><div class="date">10°02′2025″</div><div class="go">OPEN SKY MAP</div></a>
 <a class="p" id="stellaCard" href="https://theskylive.com/planetarium?objects=sun-moon-mercury-venus-mars-jupiter-saturn-uranus-neptune-pluto&localdata=25.2048%7C55.2708%7CDubai%2C+UAE%7CAsia%2FDubai%7C0&obj=sun&h=04&m=00&date=2026-05-28#fov|80" target="_blank" rel="noopener"><div class="star">✦</div><div class="name">STELLA</div><div class="date">28°05′2026″</div><div class="go">OPEN SKY MAP</div></a>
 </div></section></main>
 <footer class="signature">
@@ -90,9 +90,9 @@ body:after{right:0;transform:scaleX(-1)}
   const meteor=document.getElementById('meteor');
   function shoot(){
     meteor.classList.remove('fly'); void meteor.offsetWidth; meteor.classList.add('fly');
-    setTimeout(shoot,11000+Math.random()*7000);
+    setTimeout(shoot,7000+Math.random()*5000);
   }
-  setTimeout(shoot,8500);
+  setTimeout(shoot,5500);
 
   document.querySelectorAll('a.p').forEach(card=>{
     card.addEventListener('click',function(e){
